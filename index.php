@@ -9,7 +9,7 @@
 
           get_template_part( 'content', get_post_format() );
 
-        endwhile; endif;
+        endwhile; endif ;
 
         ?>
           <nav>
