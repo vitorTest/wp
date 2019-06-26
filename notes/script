@@ -1,0 +1,17 @@
+I made a very dumb script, that remove a folder and then copy from
+another folder and copy the content of that...
+
+I wanted to work with the Wordpress theme only, in the /wp-content/themes/
+and don't wanted to create a repository for each theme... So I
+find more easy, "update" it myself... 
+
+There are some ways to do it with git, but they are very ugly.
+I'm repeating code, but I think nobody is going to complain :)
+
+Maybe I could do a better script comparing a hash of each file, and
+updating only the ones that are different. And work with some variables
+for the script not own that path wrote in absolute.
+
+But this is not the focuses in here, so I don't mind in improve that.
+Inside the theme folder there is an 'updater.sh', ugly but works for while.
+
