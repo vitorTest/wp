@@ -1,0 +1,65 @@
+|-- Basic Setting ---------------------------------------------------------------------|
+
+- Work under LAMP
+- /var/www/
+
+- /etc/apache2/
+	|-- apache2.conf
+	|       `--  ports.conf
+	|-- mods-enabled
+	|       |-- *.load
+	|       `-- *.conf
+	|-- conf-enabled
+	|       `-- *.conf
+	|-- sites-enabled
+	|       `-- *.conf
+
+Apache2 runs as www-data by default, so
+	> sudo chown vitor:www-data /var/www/html
+
+Install MySQL
+	> sudo apt-get install mysql-client mysql-server
+I don't used the secure_installation
+
+Install PHP and Modules
+	> sudo apt-get install php7.2 php7.2-mysql libapache2-mod-php7.2 php7.2-cli php7.2-cgi php7.2-gd
+
+Create WordPress Database
+	>  mysql -u root -p
+
+!!! Mysql by default has root user's authentication plugin as auth_socket, 
+	which requires the system user name and db user name to be the same. 
+
+!!! So I'll to create another user with the old pattern vitor:changeit123
+	> # mysql -u root -p
+	> GRANT ALL PRIVILEGES ON *.* TO 'username'@'localhost' IDENTIFIED BY 'password';
+	
+Login with new user, and create the database
+	> mysql -u username -p
+	> CREATE DATABASE wp_bd;
+
+It's time to edit wp-config.php.
+Tha basic set is to change DB_NAME, DB_USER and the DB_PASSWORD.
+
+For sure restart the services
+	> sudo systemctl restart apache2.service 
+	> sudo systemctl restart mysql.service
+
+!!! Error establishing a database connection.
+!!! I already have configurated all permitions. I'll try to install phpmyadmin.
+
+	> sudo add-apt-repository universe
+
+Now is the time to install phpMyAdmin.
+	> sudo apt update
+	> sudo apt install phpmyadmin php-mbstring php-gettext
+
+!!! loscalhost/phpadmin is not working.
+!!! Including PHPMyAdmin inside apache configuration, in '/etc/apache2/apache.conf',
+	> Include /etc/phpmyadmin/apache.conf
+
+I just wrote de DB_NAME wrong... The name was wp_bd and I was trying
+to access wp_db... Stupidity number 1920392493029439459394. Sorry mom.
+
+Now I'm going to copy the files from tanRascia to '/var/www/html/wordpress/wp-content/themes'.
+
