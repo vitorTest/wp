@@ -9,15 +9,17 @@
 
           get_template_part( 'content', get_post_format() );
 
-        endwhile; endif ;
-
+        endwhile; 
         ?>
+
           <nav>
             <ul class="pager">
-              <li><a href="#">Previous</a></li>
-              <li><a href="#">Next</a></li>
+              <li><?php next_posts_link( 'Older posts' ); ?></li>
+              <li><?php previous_posts_link( 'Newer posts' ); ?></li>
             </ul>
           </nav>
+
+        <?php endif ;?>
 
         </div><!-- /.blog-main -->
 

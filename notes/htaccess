@@ -1,0 +1,36 @@
+To resolve it I followed this article:
+https://help.ubuntu.com/community/EnablingUseOfApacheHtaccessFiles
+
+But by following it, I found some doubts that are answered by this guy:
+https://stackoverflow.com/questions/46839045/cannt-find-directory-var-www-in-000-default-file
+
+#Quick review:
+#active mode rewriting
+> sudo a2enmod rewrite 
+> sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/wordpress.conf
+> sudo nano /etc/apache2/sites-available/wordpress.conf
+
+I pasted this, bellow the line 'DocumentRoot /var/www/html':
+	<Directory /var/www/html/>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride All
+                Order allow,deny
+                allow from all
+        </Directory>
+
+> sudo a2ensite wordpress.conf
+> sudo a2dissite 000-default.conf
+
+#I found this line on /etc/apache2/apache2.conf:
+<Directory /var/www/>
+AllowOverride None
+</Directory>
+#And change it to:
+<Directory /var/www/hmtl>
+AllowOverride All
+</Directory>
+
+> sudo service apache2 reload 
+> sudo service apache2 restart
+
+And wordpress was free to generate his .htaccess :)
